@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="anchorPane" prefHeight="20" prefWidth="950" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">   <children>
+      <Label id="label1" fx:id="label1" layoutX="14.0" layoutY="1.0" text="MATTER" />
+      <Label id="label2" fx:id="label2" layoutX="441.0" layoutY="1.0" text="HH:MM" />
+      <Label id="label3" fx:id="label3" layoutX="895.0" layoutY="1.0" text="MM" />
+   </children>
+</AnchorPane>
