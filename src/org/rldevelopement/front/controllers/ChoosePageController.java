@@ -4,12 +4,14 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
 import org.rldevelopement.back.Class;
 import org.rldevelopement.back.matters;
 import org.rldevelopement.back.network.SQLManager;
+import org.rldevelopement.front.App;
 import org.rldevelopement.front.controllers.ListCellController;
 
 import java.net.URL;
@@ -54,5 +56,14 @@ public class ChoosePageController implements Initializable {
 
     public static Class getSelectedClass() {
         return SelectedClass;
+    }
+
+    public void handleLoginButtonAction(ActionEvent actionEvent) {
+        if(getSelectedClass() != null)
+        System.out.println("id = " + getSelectedClass().getClassId() + " matter = " + getSelectedClass().getMatter() + " date = " + getSelectedClass().getDate() + " duration = " + getSelectedClass().getDuration());
+        else {
+            System.out.println("Please Select a Class");
+            //SQLManager.createClass("arabic", "test4", App.getSystemipaddress(), 25567, 5, "11:30", 90, 3, "college", 3);
+        }
     }
 }

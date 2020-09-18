@@ -143,8 +143,24 @@ public class SQLManager {
         return classesCount;
     }
 
-    public static void createClass() {
-        
+    public static void createClass(String subject, String professor, String ip, int port, int students, String start, int duration, int level, String cycle, int classe) {
+        try {
+            PreparedStatement q  = connection.prepareStatement("INSERT INTO class(subject,professor,ip,port,students,start,duration,level,cycle,class) VALUES (?,?,?,?,?,?,?,?,?,?)");
+            q.setString(1, subject);
+            q.setString(2, professor);
+            q.setString(3, ip);
+            q.setInt(4, port);
+            q.setInt(5, students);
+            q.setString(6, start);
+            q.setInt(7,duration);
+            q.setInt(8,level);
+            q.setString(9,cycle);
+            q.setInt(10,classe);
+            q.execute();
+            q.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void disconnect() {
