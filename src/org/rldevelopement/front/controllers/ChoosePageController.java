@@ -6,14 +6,19 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
+import javafx.stage.Stage;
 import org.rldevelopement.back.Class;
 import org.rldevelopement.back.matters;
 import org.rldevelopement.back.network.SQLManager;
 import org.rldevelopement.front.App;
 import org.rldevelopement.front.controllers.ListCellController;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,10 +63,21 @@ public class ChoosePageController implements Initializable {
         return SelectedClass;
     }
 
-    public void handleLoginButtonAction(ActionEvent actionEvent) {
-        if(getSelectedClass() != null)
-        System.out.println("id = " + getSelectedClass().getClassId() + " matter = " + getSelectedClass().getMatter() + " date = " + getSelectedClass().getDate() + " duration = " + getSelectedClass().getDuration());
-        else {
+    public void handleLoginButtonAction(ActionEvent actionEvent) throws IOException {
+        if(getSelectedClass() != null) {
+            System.out.println("id = " + getSelectedClass().getClassId() + " matter = " + getSelectedClass().getMatter() + " date = " + getSelectedClass().getDate() + " duration = " + getSelectedClass().getDuration());
+            Stage stage = App.getStage();
+            Parent root = FXMLLoader.load(getClass().getResource("../fxml/Classroom.fxml"));
+
+            Scene scene = new Scene(root);
+
+            stage.setTitle("Home - Remote Classes");
+            stage.setScene(scene);
+            stage.setResizable(false);
+
+
+            stage.show();
+        }else {
             System.out.println("Please Select a Class");
             //SQLManager.createClass("arabic", "test4", App.getSystemipaddress(), 25567, 5, "11:30", 90, 3, "college", 3);
         }

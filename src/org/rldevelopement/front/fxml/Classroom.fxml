@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.media.MediaView?>
+<AnchorPane id="AnchorPane" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.rldevelopement.front.controllers.ClassroomController">
+<children>
+    <StackPane layoutX="184.0" layoutY="100.0" prefHeight="720.0" prefWidth="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+                <children>
+                    <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #2196f3;" />
+                    <Pane prefHeight="520.0" prefWidth="800.0" style="-fx-background-color: #EDE7F6;" />
+                </children>
+            </VBox>
+            <MediaView fx:id="mediaView" layoutX="140.0" layoutY="113.0" fitWidth="1000.0" fitHeight="500.0" style="-fx-background-color: WHITE; -fx-border-color: white; -fx-effect: dropshadow(gaussian, rgb(0.0, 0.0, 0.0, 0.15), 6.0, 0.7, 0.0,1.5); -fx-background-radius: 4; -fx-border-radius: 4; -fx-padding: 8;"/>
+        </children>
+    </StackPane>
+</children>
+</AnchorPane>
