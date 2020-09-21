@@ -1,5 +1,6 @@
 package org.rldevelopement.front.controllers;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ import org.rldevelopement.front.App;
 import org.rldevelopement.front.controllers.ListCellController;
 
 import java.io.IOException;
+import java.lang.management.MemoryManagerMXBean;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ public class ChoosePageController implements Initializable {
     private ListView<Class> ListView;
     ArrayList<Class> test = new ArrayList<>();
 
+    @FXML
+    private JFXButton create = new JFXButton();
+
     ObservableList<Class> list;
 
     ArrayList<Class> classes;
@@ -37,6 +42,9 @@ public class ChoosePageController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        if(!App.getAccount().getType().equals("teacher")) {
+            create.setVisible(false);
+        }
         try {
             classes = SQLManager.getClasses();
         } catch (SQLException throwables) {
@@ -81,5 +89,21 @@ public class ChoosePageController implements Initializable {
             System.out.println("Please Select a Class");
             //SQLManager.createClass("arabic", "test4", App.getSystemipaddress(), 25567, 5, "11:30", 90, 3, "college", 3);
         }
+    }
+
+    public void handleCreateButtonAction(ActionEvent actionEvent) throws IOException {
+
+        Stage stage = App.getStage();
+        Parent root = FXMLLoader.load(getClass().getResource("../fxml/createClass.fxml"));
+
+        Scene scene = new Scene(root);
+
+        stage.setTitle("Home - Remote Classes");
+        stage.setScene(scene);
+        stage.setResizable(false);
+
+
+        stage.show();
+
     }
 }

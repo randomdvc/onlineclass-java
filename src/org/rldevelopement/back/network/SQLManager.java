@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Vector;
 
 public class SQLManager {
@@ -143,8 +144,7 @@ public class SQLManager {
         return classesCount;
     }
 
-    public static void createClass(String subject, String professor, String ip, int port, int students, String start, int duration, int level, String cycle, int classe) {
-        try {
+    public static void createClass(String subject, String professor, String ip, int port, int students, String start, int duration, int level, String cycle, int classe) throws SQLException {
             PreparedStatement q  = connection.prepareStatement("INSERT INTO class(subject,professor,ip,port,students,start,duration,level,cycle,class) VALUES (?,?,?,?,?,?,?,?,?,?)");
             q.setString(1, subject);
             q.setString(2, professor);
@@ -158,9 +158,6 @@ public class SQLManager {
             q.setInt(10,classe);
             q.execute();
             q.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void disconnect() {
