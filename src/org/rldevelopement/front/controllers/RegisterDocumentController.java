@@ -46,21 +46,11 @@ public class RegisterDocumentController implements Initializable {
             type = "student";
         }
 
-        SQLManager.createAccount(fname.getText(), lname.getText(), email.getText(), password.getText(), type);
-        App.setAccount(SQLManager.getAccount(email.getText(), password.getText()));
-        Stage stage = App.getStage();
-        Parent root = FXMLLoader.load(getClass().getResource("../fxml/MainPage.fxml"));
+        SQLManager.createAccount(fname.getText(), lname.getText(), email.getText(), Password.getHash(password.getText()), type);
+        App.setAccount(SQLManager.getAccount(email.getText(), Password.getHash(password.getText())));
+        App.getInstance().loadView("MainPage", "Home");
 
-        Scene scene = new Scene(root);
-
-        stage.setTitle("Home - Remote Classes");
-        stage.setScene(scene);
-        stage.setResizable(false);
-
-
-        stage.show();
-
-        System.out.println(fname.getText() + " " + lname.getText() + " " + email.getText() + " " + Password.getSaltedHash(password.getText()));
+        System.out.println(fname.getText() + " " + lname.getText() + " " + email.getText() + " " + Password.getHash(password.getText()));
 
     }
 

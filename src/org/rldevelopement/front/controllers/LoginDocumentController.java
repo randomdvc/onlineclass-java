@@ -44,32 +44,15 @@ public class LoginDocumentController implements Initializable {
     private void handleLoginButtonAction(ActionEvent event) throws IOException {
 
         try {
-            account = SQLManager.getAccount(email.getText(), password.getText());
+            System.out.println(Password.getHash(password.getText()));
+            account = SQLManager.getAccount(email.getText(), Password.getHash(password.getText()));
             System.out.println("Connected to " + account.getEmail());
             if(account.getCycle() != null || account.getLevel() != 0 || account.getClassName() != null) {
                 Stage stage = App.getStage();
-                Parent root = FXMLLoader.load(getClass().getResource("../fxml/ChoosePage.fxml"));
-
-                Scene scene = new Scene(root);
-
-                stage.setTitle("Home - Remote Classes");
-                stage.setScene(scene);
-                stage.setResizable(false);
-
-
-                stage.show();
+                App.getInstance().loadView("ChoosePage", "Classes");
             } else {
                 Stage stage = App.getStage();
-                Parent root = FXMLLoader.load(getClass().getResource("../fxml/MainPage.fxml"));
-
-                Scene scene = new Scene(root);
-
-                stage.setTitle("Home - Remote Classes");
-                stage.setScene(scene);
-                stage.setResizable(false);
-
-
-                stage.show();
+                App.getInstance().loadView("MainPage", "Home");
             }
         } catch (Exception e) {
             e.printStackTrace();

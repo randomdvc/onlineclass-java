@@ -19,6 +19,7 @@ public class Account {
         this.type = type;
         this.cycle = cycle;
         this.level = level;
+        this.level = level;
         this.Class = Class;
         this.absence = absence;
 

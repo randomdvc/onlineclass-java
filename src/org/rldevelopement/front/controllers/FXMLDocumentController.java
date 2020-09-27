@@ -90,17 +90,7 @@ public class FXMLDocumentController implements Initializable {
             SQLManager.updateClassInfo("cycle", Cycle, App.getAccount().getEmail());
             SQLManager.updateClassInfo("level", Level, App.getAccount().getEmail());
             SQLManager.updateClassInfo("class", Class, App.getAccount().getEmail());
-            Stage stage = App.getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/ChoosePage.fxml"));
-
-            Scene scene = new Scene(root);
-
-            stage.setTitle("Home - Remote Classes");
-            stage.setScene(scene);
-            stage.setResizable(false);
-
-
-            stage.show();
+            App.getInstance().loadView("ChoosePage", "Classes");
         } else {
             System.out.println("Veuillez Remplir tous les Champs");
         }

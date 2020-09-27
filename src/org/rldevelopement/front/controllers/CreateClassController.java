@@ -66,17 +66,7 @@ public class CreateClassController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        Stage stage = App.getStage();
-        Parent root = FXMLLoader.load(getClass().getResource("../fxml/Classroom.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setTitle("Home - Remote Classes");
-        stage.setScene(scene);
-        stage.setResizable(false);
-
-
-        stage.show();
+        App.getInstance().loadView("Classroom", "Classes");
 
     }
 }

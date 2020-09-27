@@ -19,15 +19,25 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 import org.rldevelopement.back.Account;
 import org.rldevelopement.back.network.SQLManager;
+import org.rldevelopement.back.network.ServerManager;
 import org.rldevelopement.back.security.Password;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
+import java.util.Date;
 
 public class App extends Application {
 
@@ -37,14 +47,46 @@ public class App extends Application {
 
     private static SQLManager sql;
 
-    Socket socket = new Socket();
+    Socket socket = null;
     public static String systemipaddress = "";
 
+    public static App instance;
+    
     @Override
     public void start(Stage stage) throws Exception {
-        sql = new SQLManager("jdbc:mysql://", "localhost", "onlineclasses", "root", "");
-        sql.connect();
+        Stage = stage;
+        Stage.initStyle(StageStyle.DECORATED);
 
+        instance = this;
+
+        connectToDataBase();
+        System.out.println(getPublicAdress());
+        loadView("LoginDocument", "Login");
+        ServerManager.connectToServer();
+    }
+
+    public void loadView(String res, String title) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../front/fxml/" + res + ".fxml"));
+
+        Scene scene = new Scene(root);
+
+        Stage.setScene(scene);
+        Stage.setResizable(false);
+        Stage.setTitle(title + " - Remote Classes");
+
+        FadeTransition ft = new FadeTransition(Duration.millis(3000));
+        ft.setFromValue(0.0);
+        ft.setToValue(1.0);
+
+        ft.play();
+        Stage.show();
+    }
+
+    public static App getInstance() {
+        return instance;
+    }
+
+    private String getPublicAdress() {
         try
         {
             URL url_name = new URL("http://bot.whatismyipaddress.com");
@@ -58,25 +100,13 @@ public class App extends Application {
         {
             systemipaddress = "Cannot Execute Properly";
         }
-        System.out.println("Public IP Address: " + systemipaddress +"\n");
 
+        return systemipaddress;
+    }
 
-        Stage = stage;
-        Parent root = FXMLLoader.load(getClass().getResource("../front/fxml/LoginDocument.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setScene(scene);
-        stage.initStyle(StageStyle.DECORATED);
-        stage.setResizable(false);
-        stage.setTitle("Login - Remote Classes");
-
-        stage.show();
-        FadeTransition ft = new FadeTransition(Duration.millis(3000));
-        ft.setFromValue(0.0);
-        ft.setToValue(1.0);
-
-        ft.play();
+    private void connectToDataBase() {
+        sql = new SQLManager("jdbc:mysql://", "localhost", "onlineclasses", "root", "");
+        sql.connect();
     }
 
     public static Stage getStage(){

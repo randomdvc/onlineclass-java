@@ -23,7 +23,10 @@ import java.io.IOException;
 import java.lang.management.MemoryManagerMXBean;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
@@ -74,17 +77,15 @@ public class ChoosePageController implements Initializable {
     public void handleLoginButtonAction(ActionEvent actionEvent) throws IOException {
         if(getSelectedClass() != null) {
             System.out.println("id = " + getSelectedClass().getClassId() + " matter = " + getSelectedClass().getMatter() + " date = " + getSelectedClass().getDate() + " duration = " + getSelectedClass().getDuration());
-            Stage stage = App.getStage();
-            Parent root = FXMLLoader.load(getClass().getResource("../fxml/Classroom.fxml"));
+            DateFormat format = new SimpleDateFormat("HH:mm");
+            Date date = new Date();
+            System.out.println(format.format(date));
+            if(format.format(date).equals(getSelectedClass().getDate())) {
+               App.getInstance().loadView("Classroom", "Classroom");
+            } else {
+                System.out.println("The Class don't Start yet");
+            }
 
-            Scene scene = new Scene(root);
-
-            stage.setTitle("Home - Remote Classes");
-            stage.setScene(scene);
-            stage.setResizable(false);
-
-
-            stage.show();
         }else {
             System.out.println("Please Select a Class");
             //SQLManager.createClass("arabic", "test4", App.getSystemipaddress(), 25567, 5, "11:30", 90, 3, "college", 3);
@@ -93,17 +94,7 @@ public class ChoosePageController implements Initializable {
 
     public void handleCreateButtonAction(ActionEvent actionEvent) throws IOException {
 
-        Stage stage = App.getStage();
-        Parent root = FXMLLoader.load(getClass().getResource("../fxml/createClass.fxml"));
-
-        Scene scene = new Scene(root);
-
-        stage.setTitle("Home - Remote Classes");
-        stage.setScene(scene);
-        stage.setResizable(false);
-
-
-        stage.show();
+        App.getInstance().loadView("createClass", "Create Class");
 
     }
 }
